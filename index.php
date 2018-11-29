@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-background:url(images/nick.jpg);
+  background:url(images/nick1.jpg);
   margin: 0;
   font-family:Verdana, Geneva, sans-serif;
 }
@@ -29,8 +29,19 @@ background:url(images/nick.jpg);
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: #339900;
   color: white;
+}
+
+h2 { 
+    display: block;
+    font-size: 2em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+	color: #FFF;
 }
 </style>
 </head>
@@ -38,18 +49,15 @@ background:url(images/nick.jpg);
 
 <div class="topnav">
   <a class="active" href="index.php">Home</a>
-  <a href="temp.php">Actor List</a>
-  <a href="temp.php">Movie List</a>
-  <a href="temp.php">Studio List</a>
+  <a href="actorlist.php">Actor List</a>
+  <a href="movielist.php">Movie List</a>
+  <a href="tvseries.php">Tv Series</a>
+  <a href="temp.php">Add Data</a>
   <a href="login.php">Logout</a>
 </div>
 
 <div style="padding-left:16px">
-  <h2>Welome to The Wicker Men Database</h2>
-  <p>Nicolas Cage</p>
-  <p>Nicolas Cage</p>
-  <p>Nicolas Cage</p>
-  <p>Nicolas Cage</p>
+  <h2 align="center">Welome to The Wicker Men Database</h2>
 </div>
 
 </body>

@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `film_staffing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `film_staffing` (
   `film_ID` int(11) NOT NULL,
   `person_ID` int(11) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `film_staffing` (
   KEY `person_ID_idx` (`person_ID`),
   CONSTRAINT `film_ID` FOREIGN KEY (`film_ID`) REFERENCES `films` (`id`),
   CONSTRAINT `film_staff` FOREIGN KEY (`person_ID`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `films`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `films` (
   `ID` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `films` (
   `budget` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `people`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `people` (
   `ID` int(11) NOT NULL,
   `birth_date` date DEFAULT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `people` (
   `last_name` varchar(30) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,12 +104,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `play_staffing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `play_staffing` (
   `play_ID` int(11) NOT NULL,
   `person_ID` int(11) NOT NULL,
   `role` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,13 +128,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pseudonyms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `pseudonyms` (
   `name` varchar(50) NOT NULL,
   `ID` int(11) NOT NULL,
   KEY `ID_idx` (`ID`),
   CONSTRAINT `ID` FOREIGN KEY (`ID`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `stage_plays`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `stage_plays` (
   `ID` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `stage_plays` (
   `budget` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tv_series`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `tv_series` (
   `ID` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE `tv_series` (
   `release_date` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +208,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tv_staffing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `tv_staffing` (
   `person_ID` int(11) NOT NULL,
   `tv_ID` int(11) NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE `tv_staffing` (
   KEY `tv_ID_idx` (`tv_ID`),
   CONSTRAINT `tv_ID` FOREIGN KEY (`tv_ID`) REFERENCES `tv_series` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tv_staff` FOREIGN KEY (`person_ID`) REFERENCES `people` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
