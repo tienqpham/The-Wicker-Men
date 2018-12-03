@@ -1,7 +1,7 @@
 CREATE TABLE people
 ( pID INT, 
-firstName VARCHAR(50) NOT NULL,
-lastName VARCHAR(50) NOT NULL,
+firstName VARCHAR(40) NOT NULL,
+lastName VARCHAR(30) NOT NULL,
 birthDate DATE NOT NULL,
 deathDate DATE,
 PRIMARY KEY (pID)
