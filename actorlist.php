@@ -1,4 +1,5 @@
 <?php
+/*
 $conn = mysqli_connect('localhost', 'root', '', 'cagebase');
 
 if (!$conn) {
@@ -7,11 +8,28 @@ if (!$conn) {
 
 $sql = "SELECT * FROM people";
 $results = mysqli_query($conn, $sql);
+
+*/
+
+$username = 'hmalloy';
+$password = '1amb0ss.';
+$conn = oci_connect($username, $password, '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(Host=db2.ndsu.edu)(Port=1521)))(CONNECT_DATA=(SID=cs)))');
+
+if(!$conn)
+{
+	$message = oci_error();
+	echo $message, "\n";
+	exit;
+}
+
+
+
+
 ?>
 
 <html>
 <head>
-<title>Acotr List</title>
+<title>Actor List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -56,6 +74,7 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
+		<td>Database ID</td>
 		<td>First Name</td>
 		<td>Last Name</td>
 		<td>Birth Date</td>
@@ -63,14 +82,34 @@ body {
 	</tr>
 	
 	<?php
-		while($films = mysqli_fetch_assoc($results)){
-			echo "<tr>";
-			echo "<td>{$films['first_name']}</td>";
-			echo "<td>{$films['last_name']}</td>";
-			echo "<td>{$films['birth_date']}</td>";
-			echo "<td>{$films['death_date']}</td>";
-			echo "</tr>";
+	$query = 'SELECT * FROM people';
+	$stid = oci_parse($conn,$query);
+	oci_execute($stid,OCI_DEFAULT);
+	
+	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	{
+		///*
+		echo '<tr>';
+		foreach($row as $item)
+		{
+			echo '<td>' . $item . '</td>';
 		}
+		echo '</tr>';
+		//*/
+			/*
+			echo "<tr>";
+			echo "<td>{$row[0]}</td>";
+			echo "<td>{$row[1]}</td>";
+			echo "<td>{$row[2]}</td>";
+			echo "<td>{$row[3]}</td>";
+			echo "<td>{$row[4]}</td>";
+			echo "</tr>";
+			*/
+	}
+		
+	oci_free_statement($stid);
+	oci_close($conn);
+
 	?>
 </table>
 </body>
