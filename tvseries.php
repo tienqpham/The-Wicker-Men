@@ -1,4 +1,5 @@
 <?php
+/*
 $conn = mysqli_connect('localhost', 'root', '', 'cagebase');
 
 if (!$conn) {
@@ -7,6 +8,17 @@ if (!$conn) {
 
 $sql = "SELECT * FROM tv_series";
 $results = mysqli_query($conn, $sql);
+*/
+$username = 'hmalloy';
+$password = '1amb0ss.';
+$conn = oci_connect($username, $password, '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(Host=db2.ndsu.edu)(Port=1521)))(CONNECT_DATA=(SID=cs)))');
+
+if(!$conn)
+{
+	$message = oci_error();
+	echo $message, "\n";
+	exit;
+}
 ?>
 
 <html>
@@ -56,13 +68,28 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
+		<td>Database ID</td>
 		<td>Name</td>
 		<td>Episodes</td>
+		<td>Release</td>
 		<td>Budget</td>
-		<td>Release Date</td>
 	</tr>
 	
 	<?php
+	$query = 'SELECT * FROM TVSeries';
+	$stid = oci_parse($conn,$query);
+	oci_execute($stid,OCI_DEFAULT);
+	
+	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	{
+		///*
+		echo '<tr>';
+		foreach($row as $item)
+		{
+			echo '<td>' . $item . '</td>';
+		}
+	}
+	/*
 		while($films = mysqli_fetch_assoc($results)){
 			echo "<tr>";
 			echo "<td>{$films['name']}</td>";
@@ -71,6 +98,7 @@ body {
 			echo "<td>{$films['release_date']}</td>";
 			echo "</tr>";
 		}
+		*/
 	?>
 </table>
 </body>

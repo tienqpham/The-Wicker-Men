@@ -15,9 +15,15 @@ $username = 'hmalloy';
 $password = '1amb0ss.';
 $conn = oci_connect($username, $password, '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(Host=db2.ndsu.edu)(Port=1521)))(CONNECT_DATA=(SID=cs)))');
 
-$query = "SELECT * FROM people";
-$stid = oci_parse($conn,$query);
-$results = oci_execute($stid,OCI_DEFAULT);
+if(!$conn)
+{
+	$message = oci_error();
+	echo $message, "\n";
+	exit;
+}
+
+
+
 
 ?>
 
@@ -68,6 +74,7 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
+		<td>Database ID</td>
 		<td>First Name</td>
 		<td>Last Name</td>
 		<td>Birth Date</td>
@@ -75,17 +82,33 @@ body {
 	</tr>
 	
 	<?php
-		while($films = oci_fetch_assoc($results)){
-			echo "<tr>";
-			echo "<td>{$films['firstName']}</td>";
-			echo "<td>{$films['lastName']}</td>";
-			echo "<td>{$films['birthDate']}</td>";
-			echo "<td>{$films['deathDate']}</td>";
-			echo "</tr>";
+	$query = 'SELECT * FROM people';
+	$stid = oci_parse($conn,$query);
+	oci_execute($stid,OCI_DEFAULT);
+	
+	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	{
+		///*
+		echo '<tr>';
+		foreach($row as $item)
+		{
+			echo '<td>' . $item . '</td>';
 		}
+		echo '</tr>';
+		//*/
+			/*
+			echo "<tr>";
+			echo "<td>{$row[0]}</td>";
+			echo "<td>{$row[1]}</td>";
+			echo "<td>{$row[2]}</td>";
+			echo "<td>{$row[3]}</td>";
+			echo "<td>{$row[4]}</td>";
+			echo "</tr>";
+			*/
+	}
 		
-		oci_free_statement($stid);
-		oci_close($conn);
+	oci_free_statement($stid);
+	oci_close($conn);
 
 	?>
 </table>
