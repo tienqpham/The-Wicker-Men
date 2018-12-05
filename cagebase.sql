@@ -76,6 +76,9 @@ ON DELETE CASCADE
 INSERT INTO people
 VALUES (1, 'Nicolas', 'Cage', '07-JAN-64', NULL);
 
+INSERT INTO people
+VALUES (2, 'Amy', 'Heckerling', '07-MAY-1954', NULL);
+
 INSERT INTO films
 VALUES (1, 'Fast Times at Ridgemont High', '13-AUG-82', 5000000.00);
 
@@ -88,8 +91,14 @@ VALUES (1, 'Industrial Symphony No. 1: The Dream of the Broken Hearted', '10-NOV
 INSERT INTO pseudonyms
 VALUES (1, 'Nicolas Kim Coppola');
 
+INSERT INTO pseudonyms
+VALUES (1, 'Nicolas Coppola');
+
 INSERT INTO filmStaff
-VALUES (1,1, 'Brads Bud');
+VALUES (1,1, '"Brads Bud"');
+
+INSERT INTO filmStaff
+VALUES (2,1, 'Director');
 
 INSERT INTO TVStaff
 VALUES(1, 1, 'Nicholas');

@@ -74,11 +74,12 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
-		<td>Database ID</td>
+		<td>Table ID</td>
 		<td>First Name</td>
 		<td>Last Name</td>
 		<td>Birth Date</td>
 		<td>Death Date</td>
+		<td>Pseudonyms</td>
 	</tr>
 	
 	<?php
@@ -86,13 +87,42 @@ body {
 	$stid = oci_parse($conn,$query);
 	oci_execute($stid,OCI_DEFAULT);
 	
-	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	$output = "shit don't work";
+	
+	while($row = oci_fetch_array($stid,OCI_ASSOC+OCI_RETURN_NULLS))
 	{
+		$i = 0;
+		$id;
 		///*
 		echo '<tr>';
 		foreach($row as $item)
 		{
+			//echo var_dump($item);
+			if($i == 0)
+			{
+				$i = 1;
+				$id = $item;
+			}
 			echo '<td>' . $item . '</td>';
+		}
+		if($i > 0)
+		{
+			$j = 0;
+			echo '<td>';
+			$query2 = 'SELECT name FROM pseudonyms WHERE pID = ' . $id;
+			$stid2 = oci_parse($conn,$query2);
+			oci_execute($stid2,OCI_DEFAULT);
+			while($record = oci_fetch_array($stid2,OCI_ASSOC+OCI_RETURN_NULLS))
+			{
+				foreach($record as $item)
+				{
+					if($j > 0)
+						echo ', ';
+					$j++;
+					echo $item;
+				}
+			}
+			echo '</td>';
 		}
 		echo '</tr>';
 		//*/
