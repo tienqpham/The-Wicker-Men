@@ -11,7 +11,6 @@ if($_SESSION['status']!="Active"){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-  background:url(images/nick1.jpg);
   margin: 0;
   font-family:Verdana, Geneva, sans-serif;
 }
@@ -62,10 +61,6 @@ h2 {
   <a href="temp.php">Add Data</a>
   <a href="search.php">Search</a>
   <a href="logout.php">Logout</a>
-</div>
-
-<div style="padding-left:16px">
-  <h2 align="center">Welome to The Wicker Men Database</h2>
 </div>
 
 </body>

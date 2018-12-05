@@ -39,14 +39,15 @@ input[type=submit]{
 </style>
 </head>
 
-<body>
 <?php
+session_start();
 if(isset($_POST['btn_submit'])){
 	
 	$username = $_POST['user'];
 	$password = $_POST['pass'];
 		
 	if($username == "admin" && $password == "admin"){
+		$_SESSION['status'] = "Active";
 		header('location: index.php');
 	}
 	else{
