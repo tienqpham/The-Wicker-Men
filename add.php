@@ -6,9 +6,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM tv_series";
+$sql = "SELECT * FROM people";
 $results = mysqli_query($conn, $sql);
+
 */
+
 $username = 'hmalloy';
 $password = '1amb0ss.';
 $conn = oci_connect($username, $password, '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(Host=db2.ndsu.edu)(Port=1521)))(CONNECT_DATA=(SID=cs)))');
@@ -19,11 +21,16 @@ if(!$conn)
 	echo $message, "\n";
 	exit;
 }
-?>
 
+session_start();
+if($_SESSION['status']!="Active"){
+    header("location:login.php");
+}
+
+?>
 <html>
 <head>
-<title>TV Series</title>
+<title>Add Data</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -63,43 +70,32 @@ body {
   <a href="actorlist.php">Actor List</a>
   <a href="movielist.php">Movie List</a>
   <a href="tvseries.php">Tv Series</a>
-  <a href="add.php">Add Data</a>
+  <a href="temp.php">Add Data</a>
   <a href="search.php">Search</a>
+  <a href="logout.php">Logout</a>
 </div>
-<table width="600" border="1" cellpadding="1" cellspacing="1">
-	<tr>
-		<td>Database ID</td>
-		<td>Name</td>
-		<td>Episodes</td>
-		<td>Release</td>
-		<td>Budget</td>
-	</tr>
-	
-	<?php
-	$query = 'SELECT * FROM TVSeries';
-	$stid = oci_parse($conn,$query);
-	oci_execute($stid,OCI_DEFAULT);
-	
-	while($row = oci_fetch_array($stid,OCI_ASSOC))
-	{
-		///*
-		echo '<tr>';
-		foreach($row as $item)
-		{
-			echo '<td>' . $item . '</td>';
-		}
-	}
-	/*
-		while($films = mysqli_fetch_assoc($results)){
-			echo "<tr>";
-			echo "<td>{$films['name']}</td>";
-			echo "<td>{$films['episodes']}</td>";
-			echo "<td>{$films['budget']}</td>";
-			echo "<td>{$films['release_date']}</td>";
-			echo "</tr>";
-		}
-		*/
-	?>
-</table>
+<select>
+	<option value="people">People</option>
+	<option value="films">Films</option>
+	<option value="tv">TV Series</option>
+	<option value="stage">Stage Play</option>
+	<option value="pseudonyms">Pseudonyms</option>
+	<option value="filmStaff">Film Staff</option>
+	<option value="tvStaff">TV Staff</option>
+	<option value="stageStaff">Stage Play Staff</option>
+</select>
+<form>
+  First Entry (ID):<br>
+  <input type="text" name="firstentry"><br>
+  Second Entry:<br>
+  <input type="text" name="secondentry"><br>
+  Third Entry:<br>
+  <input type="text" name="thirdentry"><br>
+  Fourth Entry:<br>
+  <input type="text" name="fourthentry"><br>
+  Fifth Entry:<br>
+  <input type="text" name="fifthentry"><br>
+  <input type="submit" value="Submit">
+</form> 
 </body>
 </html>

@@ -48,7 +48,7 @@ if(isset($_POST['btn_submit'])){
 		
 	if($username == "admin" && $password == "admin"){
 		$_SESSION['status'] = "Active";
-		header('location: index.php');
+		header('location: add.php');
 	}
 	else{
 		header("location:login.php?status=false");
