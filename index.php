@@ -57,7 +57,7 @@ h2 {
 </div>
 
 <div style="padding-left:16px">
-  <h2 align="center">Welome to The Wicker Men Database</h2>
+  <h2 align="center">Welome to The CageBase</h2>
 </div>
 
 </body>

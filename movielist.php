@@ -102,7 +102,7 @@ body {
 	$stid = oci_parse($conn,$query);
 	oci_execute($stid,OCI_DEFAULT);
 	
-	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	while($row = oci_fetch_array($stid,OCI_ASSOC+OCI_RETURN_NULLS))
 	{
 		///*
 		echo '<tr>';
@@ -137,6 +137,42 @@ body {
 		<td>Last Name</td>
 		<td>Position</td>
 	</tr>
+	
+	<?php
+	//filmStaff : pID, fID, role
+	$query1 = 'SELECT pID, role FROM filmStaff WHERE fID = ' .  $fid;
+	$stid1 = oci_parse($conn,$query1);
+	oci_execute($stid1,OCI_DEFAULT);
+	
+	while($row = oci_fetch_array($stid1,OCI_ASSOC+OCI_RETURN_NULLS))
+	{
+		$i = 1;
+		echo '<tr>';
+		foreach($row as $item)
+		{
+			if($i == 1)
+			{
+				$pid = $item;
+				$query2 = 'SELECT firstName, lastName FROM people WHERE pID = ' .  $pid;
+				$stid2 = oci_parse($conn,$query2);
+				oci_execute($stid2,OCI_DEFAULT);
+				while($subRow = oci_fetch_array($stid2,OCI_ASSOC+OCI_RETURN_NULLS))
+				{
+					foreach($subRow as $subItem)
+					{
+						echo '<td>' . $subItem . '</td>';
+					}
+				}
+			}
+			else
+			{
+				echo '<td>' . $item . '</td>';
+			}
+			$i++;
+		}
+		echo '</tr>';
+	}
+	?>
 
 </table>
 
