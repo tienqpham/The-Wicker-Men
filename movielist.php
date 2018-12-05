@@ -19,6 +19,11 @@ if(!$conn)
 	echo $message, "\n";
 	exit;
 }
+session_start();
+if($_SESSION['status']!="Active"){
+    header("location:login.php");
+}
+
 ?>
 
 <?php
@@ -87,7 +92,8 @@ body {
   <a href="movielist.php">Movie List</a>
   <a href="tvseries.php">Tv Series</a>
   <a href="temp.php">Add Data</a>
-  <a href="login.php">Logout</a>
+  <a href="search.php">Search</a>
+  <a href="logout.php">Logout</a>
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
