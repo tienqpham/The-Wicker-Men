@@ -26,6 +26,29 @@ if($_SESSION['status']!="Active"){
 
 ?>
 
+<?php
+
+$fid = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+	if (empty($_POST["textbox"])) 
+	{
+		$nameErr = "Please provide film's table ID";
+	} 
+    else 
+    {
+       $fid = test_input($_POST["textbox"]);
+    }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
 <html>
 <head>
 <title>Movie List</title>
@@ -74,7 +97,7 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
-		<td>Database ID</td>
+		<td>Table ID</td>
 		<td>Name</td>
 		<td>Release Date</td>
 		<td>Budget</td>
@@ -85,7 +108,7 @@ body {
 	$stid = oci_parse($conn,$query);
 	oci_execute($stid,OCI_DEFAULT);
 	
-	while($row = oci_fetch_array($stid,OCI_ASSOC))
+	while($row = oci_fetch_array($stid,OCI_ASSOC+OCI_RETURN_NULLS))
 	{
 		///*
 		echo '<tr>';
@@ -105,5 +128,59 @@ body {
 		*/
 	?>
 </table>
+<br><br><br>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<input type="text" name="textbox">
+<span class="error">* <?php echo $nameErr;?> </span>
+<br>
+<input type="submit" name="getFilmStaff" value="get staff">
+</form>
+
+<table  width="600" border="1" cellpadding="1" cellspacing="1">
+	<tr>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Position</td>
+	</tr>
+	
+	<?php
+	//filmStaff : pID, fID, role
+	$query1 = 'SELECT pID, role FROM filmStaff WHERE fID = ' .  $fid;
+	$stid1 = oci_parse($conn,$query1);
+	oci_execute($stid1,OCI_DEFAULT);
+	
+	while($row = oci_fetch_array($stid1,OCI_ASSOC+OCI_RETURN_NULLS))
+	{
+		$i = 1;
+		echo '<tr>';
+		foreach($row as $item)
+		{
+			if($i == 1)
+			{
+				$pid = $item;
+				$query2 = 'SELECT firstName, lastName FROM people WHERE pID = ' .  $pid;
+				$stid2 = oci_parse($conn,$query2);
+				oci_execute($stid2,OCI_DEFAULT);
+				while($subRow = oci_fetch_array($stid2,OCI_ASSOC+OCI_RETURN_NULLS))
+				{
+					foreach($subRow as $subItem)
+					{
+						echo '<td>' . $subItem . '</td>';
+					}
+				}
+			}
+			else
+			{
+				echo '<td>' . $item . '</td>';
+			}
+			$i++;
+		}
+		echo '</tr>';
+	}
+	?>
+
+</table>
+
 </body>
 </html>
