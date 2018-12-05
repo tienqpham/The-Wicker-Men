@@ -100,9 +100,9 @@ body {
 			//echo var_dump($item);
 			if($i == 0)
 			{
-				$i = 1;
 				$id = $item;
 			}
+			$i++;
 			echo '<td>' . $item . '</td>';
 		}
 		if($i > 0)

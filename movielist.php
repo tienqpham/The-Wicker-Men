@@ -21,6 +21,29 @@ if(!$conn)
 }
 ?>
 
+<?php
+
+$fid = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+	if (empty($_POST["textbox"])) 
+	{
+		$nameErr = "Please provide film's table ID";
+	} 
+    else 
+    {
+       $fid = test_input($_POST["textbox"]);
+    }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
 <html>
 <head>
 <title>Movie List</title>
@@ -68,7 +91,7 @@ body {
 </div>
 <table width="600" border="1" cellpadding="1" cellspacing="1">
 	<tr>
-		<td>Database ID</td>
+		<td>Table ID</td>
 		<td>Name</td>
 		<td>Release Date</td>
 		<td>Budget</td>
@@ -99,5 +122,23 @@ body {
 		*/
 	?>
 </table>
+<br><br><br>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<input type="text" name="textbox">
+<span class="error">* <?php echo $nameErr;?> </span>
+<br>
+<input type="submit" name="getFilmStaff" value="get staff">
+</form>
+
+<table  width="600" border="1" cellpadding="1" cellspacing="1">
+	<tr>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Position</td>
+	</tr>
+
+</table>
+
 </body>
 </html>
