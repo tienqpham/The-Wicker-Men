@@ -76,14 +76,14 @@ body {
 </div>
 <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <select name= "tableSelect" id="tableSelect">
-	<option value="people">People</option>
-	<option value="films">Films</option>
-	<option value="TVSeries">TV Series</option>
-	<option value="stagePlays">Stage Play</option>
-	<option value="pseudonyms">Pseudonyms</option>
-	<option value="filmStaff">Film Staff</option>
-	<option value="TVStaff">TV Staff</option>
-	<option value="stagePlayStaff">Stage Play Staff</option>
+	<option value='people'>People</option>
+	<option value='films'>Films</option>
+	<option value='TVSeries'>TV Series</option>
+	<option value='stagePlays'>Stage Play</option>
+	<option value='pseudonyms'>Pseudonyms</option>
+	<option value='filmStaff'>Film Staff</option>
+	<option value='TVStaff'>TV Staff</option>
+	<option value='stagePlayStaff'>Stage Play Staff</option>
 </select>
 <br><br>
 People:		 		pID, firstName, lastName, birthDate, deathDate<br>
@@ -94,7 +94,9 @@ Pseudonyms:  		pID, fullName<br>
 filmStaff:   		pID, fID, role<br>
 TVStaff: 	 		pID, fID, role<br>
 stagePlayStaff: 	pID, fID, role<br><br>
-date format: dd-MON-yy)<br>
+
+place all strings in single quotes e.g. 'Nicolas'<br>
+date format: 'dd-MON-yyyy' e.g. '07-JAN-1964'<br>
 
 <br><br>
   First Entry (ID):<br>
@@ -122,24 +124,33 @@ $second = $_POST["secondentry"];
 $third = $_POST["thirdentry"];
 $fourth = $_POST["fourthentry"];
 $fifth = $_POST["fifthentry"];
-if($table == 'people' || $table == 'TVSeries')
+if($table == 'people')
 {
-	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.','.$fourth.','.$fifth.')';
+	$query = "INSERT INTO $table VALUES( ".$first." , ".$second." , ".$third." , ".$fourth." , ".$fifth." )";
+}
+if($table == 'TVSeries')
+{
+	$query = "INSERT INTO $table VALUES( ".$first." , ".$second." , ".$third." , ".$fourth." , ".$fifth." )";
 }
 else if($table == 'films' || $table == 'stagePlays')
 {
-	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.','.$fourth.')';
+	$query = "INSERT INTO $table VALUES( ".$first." , ".$second." , ".$third." , ".$fourth." )";
 }
 else if($table == 'filmStaff' || $table == 'TVStaff' || $table == 'stagePlayStaff')
 {
-	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.')';
+	$query = "INSERT INTO $table VALUES( ".$first." , ".$second." , ".$third." )";
 }
 else if($table == 'pseudonyms')
 {
-	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.')';
+	$query = "INSERT INTO $table VALUES( ".$first." , ".$second." )";
 }
 
 echo $query;
+echo '<br>';
+
+$stid = oci_parse($conn,$query);
+echo oci_execute($stid);
+
 ?>
 </body>
 </html>

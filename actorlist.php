@@ -84,8 +84,6 @@ body {
 	$stid = oci_parse($conn,$query);
 	oci_execute($stid,OCI_DEFAULT);
 	
-	$output = "shit don't work";
-	
 	while($row = oci_fetch_array($stid,OCI_ASSOC+OCI_RETURN_NULLS))
 	{
 		$i = 0;
