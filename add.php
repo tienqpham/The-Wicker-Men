@@ -74,17 +74,17 @@ body {
   <a href="search.php">Search</a>
   <a href="logout.php">Logout</a>
 </div>
-<select>
+<select name=tableSelect" id="tableSelect">
 	<option value="people">People</option>
 	<option value="films">Films</option>
-	<option value="tv">TV Series</option>
-	<option value="stage">Stage Play</option>
+	<option value="TVSeries">TV Series</option>
+	<option value="stagePlays">Stage Play</option>
 	<option value="pseudonyms">Pseudonyms</option>
 	<option value="filmStaff">Film Staff</option>
-	<option value="tvStaff">TV Staff</option>
-	<option value="stageStaff">Stage Play Staff</option>
+	<option value="TVStaff">TV Staff</option>
+	<option value="stagePlayStaff">Stage Play Staff</option>
 </select>
-<form>
+<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
   First Entry (ID):<br>
   <input type="text" name="firstentry"><br>
   Second Entry:<br>
@@ -95,7 +95,16 @@ body {
   <input type="text" name="fourthentry"><br>
   Fifth Entry:<br>
   <input type="text" name="fifthentry"><br>
-  <input type="submit" value="Submit">
+  <input type="submit" name="submit" value="Submit">
 </form> 
+
+<br>
+You entered:
+<br>
+
+<?php
+echo $firstentry;
+
+?>
 </body>
 </html>
