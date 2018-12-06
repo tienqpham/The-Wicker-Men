@@ -74,7 +74,8 @@ body {
   <a href="search.php">Search</a>
   <a href="logout.php">Logout</a>
 </div>
-<select name=tableSelect" id="tableSelect">
+<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<select name= "tableSelect" id="tableSelect">
 	<option value="people">People</option>
 	<option value="films">Films</option>
 	<option value="TVSeries">TV Series</option>
@@ -84,7 +85,18 @@ body {
 	<option value="TVStaff">TV Staff</option>
 	<option value="stagePlayStaff">Stage Play Staff</option>
 </select>
-<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<br><br>
+People:		 		pID, firstName, lastName, birthDate, deathDate<br>
+Films: 		 		fID, name, releaseDate, budget<br>
+TVSeries: 	 		tID, name, episodes, releaseDate, budget<br>
+stagePlays:  		sID, name, releaseDate, budget<br>
+Pseudonyms:  		pID, fullName<br>
+filmStaff:   		pID, fID, role<br>
+TVStaff: 	 		pID, fID, role<br>
+stagePlayStaff: 	pID, fID, role<br><br>
+date format: dd-MON-yy)<br>
+
+<br><br>
   First Entry (ID):<br>
   <input type="text" name="firstentry"><br>
   Second Entry:<br>
@@ -99,12 +111,35 @@ body {
 </form> 
 
 <br>
-You entered:
+Your query:
 <br>
 
 <?php
-echo $firstentry;
+$query;
+$table = $_POST["tableSelect"];
+$first = $_POST["firstentry"];
+$second = $_POST["secondentry"];
+$third = $_POST["thirdentry"];
+$fourth = $_POST["fourthentry"];
+$fifth = $_POST["fifthentry"];
+if($table == 'people' || $table == 'TVSeries')
+{
+	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.','.$fourth.','.$fifth.')';
+}
+else if($table == 'films' || $table == 'stagePlays')
+{
+	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.','.$fourth.')';
+}
+else if($table == 'filmStaff' || $table == 'TVStaff' || $table == 'stagePlayStaff')
+{
+	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.','.$third.')';
+}
+else if($table == 'pseudonyms')
+{
+	$query = 'INSERT INTO '.$table.' VALUES( '.$first.','.$second.')';
+}
 
+echo $query;
 ?>
 </body>
 </html>
