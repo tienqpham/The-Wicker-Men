@@ -53,7 +53,6 @@ h2 {
   <a href="movielist.php">Movie List</a>
   <a href="tvseries.php">Tv Series</a>
   <a href="add.php">Add Data</a>
-  <a href="search.php">Search</a>
 </div>
 
 <div style="padding-left:16px">

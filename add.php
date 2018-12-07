@@ -71,7 +71,6 @@ body {
   <a href="movielist.php">Movie List</a>
   <a href="tvseries.php">Tv Series</a>
   <a href="add.php">Add Data</a>
-  <a href="search.php">Search</a>
   <a href="logout.php">Logout</a>
 </div>
 <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
